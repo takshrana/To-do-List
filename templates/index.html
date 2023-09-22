@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block header %}
+  {% block title %} Home {% endblock %}
+{% endblock %}
+{% block content %}
+  <form class="form-todo" action="/add" method="post">
+  <div class="mb-3">
+    <label for="title" class="form-label">Title</label>
+    <input type="text" class="form-control" id="title" name="title">
+  </div>
+  <button type="submit" class="btn btn-primary">Add Task</button>
+  </form>
+  {% for todo in todo_list %}
+    <ul class="list-group list-group-horizontal">
+      {% if todo.complete == False %}
+        <li class="list-group-item list-group-item-secondary">Not Completed</li>
+      {% else %}
+        <li class="list-group-item list-group-item-success">Completed</li>
+      {% endif %}
+      <li class="list-group-item">{{loop.index}}</li>
+      <li class="list-group-item">{{todo.title}}</li>
+    </ul>
+    <a class="btn btn-primary" href="/update/{{ todo.id }}">Update</a>
+    <a class="btn btn-danger" href="/delete/{{ todo.id }}">Delete</a>
+  {% endfor %}
+
+{% endblock %}
