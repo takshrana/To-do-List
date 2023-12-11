@@ -1,10 +1,12 @@
 from flask import Flask, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
+import os
 
 app = Flask(__name__)
 
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
+app.config['SECRET_KEY'] = os.environ.get('FLASK_KEY')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DB_URI', 'sqlite:///todo.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -26,7 +28,7 @@ def about():
     return render_template('about.html')
 
 
-@app.route('/add', methods = ['POST',])
+@app.route('/add', methods = ['POST'])
 def add():
     title = request.form.get('title')
     new_todo = Todo(title=title, complete=False)
