@@ -3,7 +3,9 @@
   {% block title %} Home {% endblock %}
 {% endblock %}
 {% block content %}
-  <form class="form-todo" action="/add" method="post">
+<div class="container-fluid">
+
+<form class="form-todo" action="/add" method="post">
   <div class="mb-3">
     <label for="title" class="form-label">Title</label>
     <input type="text" class="form-control" id="title" name="title">
@@ -24,4 +26,5 @@
     <a class="btn btn-danger" href="/delete/{{ todo.id }}">Delete</a>
   {% endfor %}
 
+</div>
 {% endblock %}
